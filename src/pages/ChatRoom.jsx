@@ -23,7 +23,7 @@ export default function ChatRoom() {
   useEffect(() => {
     console.log('test useEffect: ',messagesArray)
     testRef.current = messagesArray;
-  }, [socket, messagesArray])
+  }, [socket, messagesArray]) //test
 
   useEffect(() => {
     if (loggedIn){
