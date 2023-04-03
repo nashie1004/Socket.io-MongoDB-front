@@ -17,13 +17,12 @@ export default function ChatRoom() {
       message: data.message,
       time: data.time
     }])
-    // console.log('from server >>:', messagesArray, data)
   })
 
   useEffect(() => {
-    console.log('test useEffect: ',messagesArray)
+    //GLITCHY: SAVE MESSAGES FOR USEFFECT CLEANUP
     testRef.current = messagesArray;
-  }, [socket, messagesArray]) //test
+  }, [socket, messagesArray])
 
   useEffect(() => {
     if (loggedIn){
@@ -33,7 +32,7 @@ export default function ChatRoom() {
       const room = params.roomID.split('-')
       let to = LOCAL_STORAGE.name !== room[0] ? room[0] : room[1] 
       
-      // loadConversation() //
+      loadConversation() 
       
       async function loadConversation(){
         const response = await fetch(BASE + '/getInitialConversation', {
@@ -48,13 +47,11 @@ export default function ChatRoom() {
           })
         })
         const res = await response.json()
-        console.log('loaded convo: ', res)
-        // setMessagesArray(res)
+        setMessagesArray(res.data.messages[to])
       }
 
       return () => {
-        console.log('CLEANUP: ', messagesArray, testRef.current)
-        // saveConversation()
+        saveConversation()
 
         async function saveConversation(){
           const response = await fetch(BASE + '/saveConversation', {
@@ -66,12 +63,13 @@ export default function ChatRoom() {
               token: LOCAL_STORAGE.access_token,
               ownerName: LOCAL_STORAGE.name,
               toUserName: to, 
-              messagesArray
-              //TODO: MESSAGE
+              messagesArray: testRef.current
             })
           })
           const res = await response.json()
-          console.log('saved convo response:', res)
+          if (res.status === 'ok'){
+            console.log('save conversation ok')
+          }
         }
       }
 
