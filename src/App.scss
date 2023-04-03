@@ -1,0 +1,28 @@
+$nav-border: lightgrey;
+$black: black;
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+    font-family: sans-serif, cursive;
+    text-decoration: none;
+    color: $black;
+    font-size: 1.2rem;
+}
+.App{
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 70px 1fr;
+
+    .Nav{
+        border-bottom: 1px solid $nav-border;
+        display: flex;
+        align-items: center;
+        padding-inline: 1rem;
+
+        & > *{
+            padding-inline: 1rem;
+        }
+    }
+}
