@@ -36,9 +36,9 @@ export default function Login() {
 
         localStorage.setItem('token', option)
         setLoggedIn(true)
-        redirect('/users')
+        redirect('/chat')
       } else {
-        console.log('Error: check name or password')
+        alert('Error: Check Name or Password')
       }
     }
   }

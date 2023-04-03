@@ -19,21 +19,21 @@ export default function ChatRoom() {
     }])
   })
 
+  //GLITCHY: SAVE MESSAGES FOR USEFFECT CLEANUP
   useEffect(() => {
-    //GLITCHY: SAVE MESSAGES FOR USEFFECT CLEANUP
-    testRef.current = messagesArray;
+    testRef.current = messagesArray
   }, [socket, messagesArray])
 
+  //PRELOADS AND SAVES CONVO
   useEffect(() => {
     if (loggedIn){
       socket.emit('joinRoom', params.roomID)
-
+      
       const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
       const room = params.roomID.split('-')
       let to = LOCAL_STORAGE.name !== room[0] ? room[0] : room[1] 
       
       loadConversation() 
-      
       async function loadConversation(){
         const response = await fetch(BASE + '/getInitialConversation', {
           method: "POST",
@@ -47,12 +47,15 @@ export default function ChatRoom() {
           })
         })
         const res = await response.json()
-        setMessagesArray(res.data.messages[to])
+
+        if (res.status === 'ok'){
+          setMessagesArray(res.data.messages[to])
+        }
       }
 
       return () => {
+        
         saveConversation()
-
         async function saveConversation(){
           const response = await fetch(BASE + '/saveConversation', {
             method: "POST",
@@ -67,8 +70,8 @@ export default function ChatRoom() {
             })
           })
           const res = await response.json()
-          if (res.status === 'ok'){
-            console.log('save conversation ok')
+          if (res.status !== 'ok'){
+            alert('Error in saving conversation')
           }
         }
       }
@@ -89,29 +92,34 @@ export default function ChatRoom() {
     <div className='ChatRoom'>
       {
         loggedIn ? (
-          <>
-            <h2>ROOM: {params.roomID}</h2>
-            <input 
-              onChange={e => setCurrentMessage(e.target.value)}
-              type="text" placeholder='Message' />
-            <button onClick={handleMessage}>Submit Message</button>
-            <h2>MESSAGES: </h2>
-              {/* 
-              ADD THIS: 
-              window.scrollTo(0, document.body.scrollHeight);
-              */}
-              {
-                messagesArray.map((item, i) => {
-                  return <p key={i}>
-                    {item.name}: 
-                    {item.message}       {item.time}
-                  </p>
-                })
-              }
-          </>
+          messagesArray.length !== 0 ? (
+            <>
+              <h2>ROOM: {params.roomID}</h2>
+              <input 
+                onChange={e => setCurrentMessage(e.target.value)}
+                type="text" placeholder='Message' />
+              <button onClick={handleMessage}>Submit Message</button>
+              <h2>MESSAGES: </h2>
+                {/* 
+                ADD THIS: 
+                window.scrollTo(0, document.body.scrollHeight);
+                */}
+                {
+                  messagesArray.map((item, i) => {
+                    return <p key={i}>
+                      {item.name}: {item.message} <span style={{fontSize: '.7rem'}}>{item.time}</span>
+                    </p>
+                  })
+                }
+            </>
+          ) : (
+            <>
+              <p>Loading...</p>
+            </>
+          )
         ) : (
           <>
-            <p>Not Logged In ChatRoom</p>
+            <p>Not Logged In -ChatRoom</p>
           </>
         )
       }

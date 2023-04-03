@@ -10,7 +10,7 @@ export default function Users() {
       {
         loggedIn ? (
           allUsers.map((item, i) => {
-            return <div key={i} style={{border: "1px solid black", marginBlock: '1rem'}}>
+            return <div key={i} style={{border: "1px solid black", marginBottom: '1rem'}}>
               <img src={item.profile} alt={item.name} />
               <p>{item.name}</p>
               {
@@ -31,7 +31,9 @@ export default function Users() {
             </div>
           })
         ) : (
-          <>Login Required -Users</>
+          <>
+            <p>Not Logged In -Users</p>
+          </>
         )
       }
     </div>

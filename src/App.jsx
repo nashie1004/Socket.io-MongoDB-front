@@ -4,10 +4,12 @@ import ChatRoom from './pages/ChatRoom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Users from './pages/Users'
+import Profile from './pages/Profile';
 import './App.scss'
 import { useState, createContext, useEffect } from 'react';
 import Nav from './Nav';
 import io from 'socket.io-client'
+import NoMatch from './pages/NoMatch';
 
 const socket = io.connect('http://localhost:3001')
 const BASE = 'http://localhost:3001'
@@ -128,11 +130,10 @@ function App() {
         _id: response.owner._id,
         access_token: JSON.parse(localStorage.getItem('token')).access_token
       })
+      
       localStorage.setItem('token', option)
-
-      console.log(URL + ' ok')
     } else {
-      console.log('error', response)
+      alert('Error in adding')
     }
 
   }
@@ -153,6 +154,8 @@ function App() {
             <Route path='/chat' element={<Chat />} />
             <Route path='/chat/:roomID' element={<ChatRoom />} />
             <Route path='/users' element={<Users />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='*' element={<NoMatch />} />
           </Routes>
         </Data.Provider>
       </BrowserRouter>

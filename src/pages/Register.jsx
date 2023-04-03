@@ -30,8 +30,12 @@ export default function Register() {
       })
 
       const data = await res.json();
-      console.log(data)
-      redirect('/login')
+      
+      if (data.status === 'ok'){
+        redirect('/login')
+      } else {
+        alert('Error: Check Name or Password')
+      }
     }
   }
 

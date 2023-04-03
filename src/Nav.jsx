@@ -1,13 +1,16 @@
 import React, {useEffect, useContext} from 'react'
 import {Link} from 'react-router-dom'
-import { Data } from './App';
+import {Data} from './App';
+import {useNavigate} from 'react-router-dom'
 
 export default function Nav() {
   const {loggedIn, setLoggedIn, } = useContext(Data)
+  const redirect = useNavigate()
 
   function removeToken(){
     localStorage.removeItem('token')
     setLoggedIn(false)
+    redirect('/login')
   }
 
   useEffect(() => {
@@ -35,6 +38,7 @@ export default function Nav() {
       }
       <Link to='/chat'>Chat</Link>
       <Link to='/users'>Users</Link>
+      <Link to='/profile'>Profile</Link>
     </div>
   )
 }
