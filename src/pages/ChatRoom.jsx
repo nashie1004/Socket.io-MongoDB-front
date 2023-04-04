@@ -1,11 +1,11 @@
 import React, {useState, useContext, useEffect, useRef} from 'react'
 import { Data } from '../App';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const BASE = 'http://localhost:3001'
 
 export default function ChatRoom() {
-  const {loggedIn, socket} = useContext(Data)
+  const {loggedIn, socket, savedUsers} = useContext(Data)
   const [currentMessage, setCurrentMessage] = useState('');
   const [messagesArray, setMessagesArray] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
@@ -57,7 +57,6 @@ export default function ChatRoom() {
       }
 
       return () => {
-        
         saveConversation()
         async function saveConversation(){
           const response = await fetch(BASE + '/saveConversation', {
@@ -80,7 +79,7 @@ export default function ChatRoom() {
       }
 
     } else console.log('not log in')
-  }, [])
+  }, [params])
 
   function handleMessage(){
     if (currentMessage !== ''){
@@ -95,16 +94,33 @@ export default function ChatRoom() {
     <div className='ChatRoom'>
       {
         loggedIn ? (
-          !loadingMessages ? (
-            <>
-            {/* CHANGE BRANCH: ADD STYLING */}
-              <div className="users-scrollbar">
+          <>
+          {/* CHANGE BRANCH: ADD STYLING */}
+            <div className="users-scrollbar">
+              <h2>USERS</h2>
+              {
+                savedUsers.map((item, i) => {
+                  const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
+                  const lower = LOCAL_STORAGE.name.localeCompare(item.name)
+                  let socketID = ''
 
-              </div>
-              <div className="chat-container">
+                  if (lower == -1){
+                    socketID = `${LOCAL_STORAGE.name}-${item.name}` 
+                  } else {
+                    socketID = `${item.name}-${LOCAL_STORAGE.name}`
+                  } //
 
-              </div>
-              <h2>ROOM: {params.roomID}</h2>
+                  return <div key={i} style={{border: '1px solid black'}}>
+                    <img src={item.profile} alt={item.name} />
+                    <p>{item.name}</p>
+                    <Link to={`/chat/${socketID}`}>
+                      ID: {socketID}
+                    </Link>
+                  </div>
+                })
+              }               
+            </div>
+            <div className="chat-container">
               <input 
                 onChange={e => setCurrentMessage(e.target.value)}
                 type="text" placeholder='Message' />
@@ -115,18 +131,20 @@ export default function ChatRoom() {
                 window.scrollTo(0, document.body.scrollHeight);
                 */}
                 {
-                  messagesArray.map((item, i) => {
-                    return <p key={i}>
-                      {item.name}: {item.message} <span style={{fontSize: '.7rem'}}>{item.time}</span>
-                    </p>
-                  })
+                  !loadingMessages ? (
+                    messagesArray.map((item, i) => {
+                      return <p key={i}>
+                        {item.name}: {item.message} <span style={{fontSize: '.7rem'}}>{item.time}</span>
+                      </p>
+                    })
+                  ) : (
+                    <>
+                      <p>Loading...</p>
+                    </>
+                  )
                 }
-            </>
-          ) : (
-            <>
-              <p>Loading...</p>
-            </>
-          )
+            </div>
+          </>
         ) : (
           <>
             <p>Not Logged In -ChatRoom</p>

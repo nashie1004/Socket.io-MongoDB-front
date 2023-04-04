@@ -25,4 +25,13 @@ $black: black;
             padding-inline: 1rem;
         }
     }
+
+    .ChatRoom{
+        display: flex;
+
+        .users-scrollbar{
+            // border-right: 1px solid $nav-border;
+            background: $nav-border;
+        }
+    }
 }
