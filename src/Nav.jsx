@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect, useContext, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import {Data} from './App';
 import {useNavigate} from 'react-router-dom'
@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom'
 export default function Nav() {
   const {loggedIn, setLoggedIn, } = useContext(Data)
   const redirect = useNavigate()
+  const showNav = useRef(null);
 
   function removeToken(){
     localStorage.removeItem('token')
@@ -15,15 +16,24 @@ export default function Nav() {
 
   useEffect(() => {
     const item = JSON.parse(localStorage.getItem('token'))
-    if (item){
-      setLoggedIn(true)
-    }
+    if (item) setLoggedIn(true)
   }, [])
+
+  function handleResponsiveNav(){
+    showNav.current.classList.toggle('showLinks')
+  }
 
   return (
     <div className='Nav'>
-      <p>Socket.io <span>Chat</span> <div className="hamburger">X</div> </p>
-      <span className='links'>
+      <p>
+        Socket.io 
+        <span>Chat</span> 
+        <div 
+          className="hamburger" 
+          onClick={handleResponsiveNav}>X
+        </div> 
+      </p>
+      <span className='links' ref={showNav}>
         {
           loggedIn ? (
             <>

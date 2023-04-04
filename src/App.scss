@@ -1,6 +1,13 @@
-$nav-border: lightgrey;
+$nav-border: rgb(22, 24, 56);
 $black: black;
 $dodger: dodgerblue;
+$bg: #061629;
+$white: white;
+$light-blue: #517592;
+$border: #2E5C82;
+$danger: #A9792B;
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
 *{
     padding: 0;
@@ -8,21 +15,22 @@ $dodger: dodgerblue;
     box-sizing: 0;
     font-family: sans-serif, cursive;
     text-decoration: none;
-    color: $black;
+    color: $white;
     font-size: 1.1rem;
+    font-family: 'Lato', sans-serif;
     // outline: 1px dashed limegreen;    
 }
 .App{
     min-height: 100vh;
+    background: $bg;
 
     .Nav{
         border-bottom: 1px solid $nav-border;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-inline: 1rem;
+        padding: .5rem 1rem;
         gap: .5rem;
-        min-height: 70px;
         transition: height .2s ease-in-out;
 
         p{
@@ -31,7 +39,7 @@ $dodger: dodgerblue;
             gap: .35rem;
 
             span{
-                color: $dodger;
+                color: $light-blue;
                 font-size: 1.5rem;
             }
 
@@ -41,15 +49,26 @@ $dodger: dodgerblue;
             }
         }
 
+        .showLinks{display: flex !important;}
         .links{
             display: flex;
             align-items: center;
             gap: .75rem;
 
+            button{
+                outline: none;
+                cursor: pointer;
+                border-radius: .3rem;
+                border: none;
+                padding: .5rem 1rem;
+                background: $border;
+            }
+
             img{
                 height: 50px;
                 width: 50px;
                 border-radius: 50%;
+                border: 1px solid $border;
             }
         }
     }
@@ -64,12 +83,11 @@ $dodger: dodgerblue;
     }
 }
 
-@media only screen and (max-width: 590px) {
+@media only screen and (max-width: 550px) {
     .Nav{
         flex-direction: column;
-        padding: .7rem;
-        gap: 1rem;
-        transition: height .2s ease-in-out;
+        justify-content: center;
+        align-items: center;
 
         p{
             width: 100%;
@@ -77,12 +95,14 @@ $dodger: dodgerblue;
             .hamburger{
                 margin-left: auto;
                 display: block !important;
+                cursor: pointer;
             }
         }
 
         .links{
             flex-direction: column;
             width: 100%;
+            display: none !important;
         }
     }
 }
