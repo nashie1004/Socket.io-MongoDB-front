@@ -8,6 +8,8 @@ $border: #2E5C82;
 $danger: #A9792B;
 $cyan: #69F5FF;
 $red: red;
+$lime: limegreen;
+$green: green;
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
@@ -152,23 +154,26 @@ body{
     }
     .ChatRoom{
         display: flex;
-        min-height: 100%;
+        height: 650px;
 
         & > *{
             flex: 1;
             min-height: 100%;
+            outline: 1px dashed $lime;
         }
 
         .users-scrollbar{
             flex: 25%;
             min-width: 170px;
+            padding: .5rem;
 
             .display-user{
-                border-bottom: 1px solid $nav-border;
+                border: 1px solid $nav-border;
                 display: flex;
                 padding: .5rem;
                 align-items: center;
                 gap: .7rem;
+                margin-bottom: .5rem;
 
                 img{
                     border-radius: 50%;
@@ -187,10 +192,31 @@ body{
             .messages-main-container{
                 overflow-y: scroll;
                 flex: 1;
+                display: grid;
+                gap: .5rem;
+                padding: .5rem;
 
-                .L{
+                .L-right{
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                }
+                .L-left{
+                    display: flex;
                     width: 100%;
                 }
+
+                @mixin msgBox($color){
+                    background: $color;
+                    padding: .5rem 1rem;
+                    border-radius: .5rem;
+                }
+                .message-left{@include msgBox($dodger);}
+                .message-right{
+                    @include msgBox($lime);
+                    align-self: flex-end;
+                }
+
             }
 
             .controls{
@@ -248,6 +274,7 @@ body{
             overflow-x: scroll;
             flex-direction: row-reverse;
             display: flex;
+            gap: .5rem;
 
             & > *{
                 min-width: 200px;

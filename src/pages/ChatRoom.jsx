@@ -126,9 +126,19 @@ export default function ChatRoom() {
                 {
                   !loadingMessages ? (
                     messagesArray.map((item, i) => {
-                      return <div key={i} className='L'>
-                        {item.name}: {item.message} <span style={{fontSize: '.7rem'}}>{item.time}</span>
-                      </div>
+                      if (item.name === JSON.parse(localStorage.getItem('token')).name){
+                        return <div key={i} className='L-right'>
+                          <p className="message-right">
+                            {item.name}: {item.message} <div style={{fontSize: '.7rem'}}>{item.time}</div>
+                          </p>
+                        </div>
+                      } else {
+                        return <div key={i} className='L-left'>
+                          <p className="message-left">
+                            {item.name}: {item.message} <div style={{fontSize: '.7rem'}}>{item.time}</div>
+                          </p>
+                        </div>
+                      }
                     })
                   ) : (
                     <>
