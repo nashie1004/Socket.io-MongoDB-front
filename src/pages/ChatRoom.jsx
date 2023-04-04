@@ -101,7 +101,7 @@ export default function ChatRoom() {
               <button onClick={handleMessage}>Submit Message</button>
               <h2>MESSAGES: </h2>
                 {/* 
-                ADD THIS: 
+                ADD THIS: //
                 window.scrollTo(0, document.body.scrollHeight);
                 */}
                 {
