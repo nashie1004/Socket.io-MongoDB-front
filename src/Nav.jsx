@@ -22,23 +22,25 @@ export default function Nav() {
 
   return (
     <div className='Nav'>
-      {
-        loggedIn ? (
-          <>
-            <img src={JSON.parse(localStorage.getItem('token')).profile} alt='pfp' width='50' height='50' style={{padding: '0'}} />
-            <span>{JSON.parse(localStorage.getItem('token')).name}</span>
-            <button onClick={removeToken}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link to='/register'>Register</Link>
-            <Link to='/login'>Login</Link>
-          </>
-        )
-      }
-      <Link to='/chat'>Chat</Link>
-      <Link to='/users'>Users</Link>
-      <Link to='/profile'>Profile</Link>
+      <p>Socket.io <span>Chat</span> <div className="hamburger">X</div> </p>
+      <span className='links'>
+        {
+          loggedIn ? (
+            <>
+              <Link to='/chat'>Chat</Link>
+              <Link to='/users'>Users</Link>
+              <Link to='/profile'>Profile</Link>
+              <button onClick={removeToken}>Logout</button>
+              <img src={JSON.parse(localStorage.getItem('token')).profile} alt='pfp' width='50' height='50' style={{padding: '0'}} />
+            </>
+          ) : (
+            <>
+              <Link to='/register'>Register</Link>
+              <Link to='/login'>Login</Link>
+            </>
+          )
+        }
+      </span>
     </div>
   )
 }

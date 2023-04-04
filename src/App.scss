@@ -1,5 +1,6 @@
 $nav-border: lightgrey;
 $black: black;
+$dodger: dodgerblue;
 
 *{
     padding: 0;
@@ -8,21 +9,48 @@ $black: black;
     font-family: sans-serif, cursive;
     text-decoration: none;
     color: $black;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    // outline: 1px dashed limegreen;    
 }
 .App{
     min-height: 100vh;
-    display: grid;
-    grid-template-rows: 70px 1fr;
 
     .Nav{
         border-bottom: 1px solid $nav-border;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding-inline: 1rem;
+        gap: .5rem;
+        min-height: 70px;
+        transition: height .2s ease-in-out;
 
-        & > *{
-            padding-inline: 1rem;
+        p{
+            font-size: 1.5rem;
+            display: flex;
+            gap: .35rem;
+
+            span{
+                color: $dodger;
+                font-size: 1.5rem;
+            }
+
+            .hamburger{
+                display: none;
+                font-size: 1.5rem;
+            }
+        }
+
+        .links{
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+
+            img{
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
         }
     }
 
@@ -30,8 +58,31 @@ $black: black;
         display: flex;
 
         .users-scrollbar{
-            // border-right: 1px solid $nav-border;
             background: $nav-border;
+            min-width: 100px;
+        }
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    .Nav{
+        flex-direction: column;
+        padding: .7rem;
+        gap: 1rem;
+        transition: height .2s ease-in-out;
+
+        p{
+            width: 100%;
+
+            .hamburger{
+                margin-left: auto;
+                display: block !important;
+            }
+        }
+
+        .links{
+            flex-direction: column;
+            width: 100%;
         }
     }
 }
