@@ -7,6 +7,7 @@ $light-blue: #517592;
 $border: #2E5C82;
 $danger: #A9792B;
 $cyan: #69F5FF;
+$red: red;
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
@@ -84,6 +85,7 @@ $cyan: #69F5FF;
     .heading{
         font-size: 3rem;
         font-weight: bold;
+        text-align: center;
     }
     @mixin btn($color){
         border: 1px solid $color;
@@ -91,27 +93,58 @@ $cyan: #69F5FF;
         min-width: 200px;
 
         &:hover{
+            color: $bg;
             background: $color;
         }
     }
-    .danger-btn{@include btn($danger);}
-    .add-btn{@include btn($light-blue);}
-    .user-card{
-        border: 1px solid $nav-border;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        transition: transform .1s;
-        max-width: 90%;
+    .danger-btn{@include btn($red);}
+    .add-btn{@include btn($cyan);}
+    .card-container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); //340px
+        grid-auto-rows: 500px;
+        width: 100%;
 
-        &:hover{
-            transform: scale(1.02);
-        }
+        .user-card{
+            border: 1px solid $nav-border;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            max-width: 90%;
+            margin: 1rem;
+            border-radius: .5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            transition: transform .1s ease-in-out, background .1s ease-in-out;
+            box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.21);
 
-        .card-title{
-            font-size: 2rem;
+            &:hover{
+                transform: scale(1.02);
+                background: rgb(8, 25, 46);
+            }
+    
+            img{
+                border-radius: 50%;
+                border: 2px solid $danger;
+                padding: .8rem;
+                width: 100px;
+                height: 100px;
+            }
+    
+            .card-title{
+                text-transform: capitalize;
+                font-size: 2rem;
+                text-align: center;
+            }
         }
     }
-
+    .Users, .Chat{
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+    }
     .ChatRoom{
         display: flex;
 
@@ -139,7 +172,7 @@ $cyan: #69F5FF;
     }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 560px) {
     .Nav{
         flex-direction: column;
         justify-content: center;
