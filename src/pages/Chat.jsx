@@ -7,7 +7,7 @@ export default function Chat() {
   
   return (
     <div className='Chat'>
-      <h2>CONNECTED USERS: </h2>
+      <p className='heading'>Connected Users</p>
       {
         loggedIn ? (
           <>
@@ -25,16 +25,16 @@ export default function Chat() {
                   } //
 
                   return (
-                    <div style={{border: '1px solid black', marginBottom: '1rem'}} key={i}>
+                    <div className='user-card' key={i}>
                       <img src={item.profile} alt={item.name} />
-                      <p>{item.name}</p>
+                      <p className='card-title'>{item.name}</p>
                       <Link to={`/chat/${socketID}`} key={i}>
                         SocketID: {socketID}
                       </Link>
                       <br/>
                       <button 
                         onClick={() => handleButton(item.name, true, item.profile)}
-                        style={{background: 'red'}}>
+                        className='danger-btn'>
                         Remove User
                       </button>
                     </div>

@@ -6,6 +6,7 @@ $white: white;
 $light-blue: #517592;
 $border: #2E5C82;
 $danger: #A9792B;
+$cyan: #69F5FF;
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
@@ -24,6 +25,14 @@ $danger: #A9792B;
     min-height: 100vh;
     background: $bg;
 
+    button{
+        outline: none;
+        border: none;
+        padding: .5rem 1rem;
+        cursor: pointer;
+        background: none;
+    }
+
     .Nav{
         border-bottom: 1px solid $nav-border;
         display: flex;
@@ -39,7 +48,7 @@ $danger: #A9792B;
             gap: .35rem;
 
             span{
-                color: $light-blue;
+                color: $cyan;
                 font-size: 1.5rem;
             }
 
@@ -56,12 +65,10 @@ $danger: #A9792B;
             gap: .75rem;
 
             button{
-                outline: none;
-                cursor: pointer;
                 border-radius: .3rem;
-                border: none;
                 padding: .5rem 1rem;
                 background: $border;
+                min-width: auto;
             }
 
             img{
@@ -73,12 +80,61 @@ $danger: #A9792B;
         }
     }
 
+    //GENERAL 
+    .heading{
+        font-size: 3rem;
+        font-weight: bold;
+    }
+    @mixin btn($color){
+        border: 1px solid $color;
+        padding: 1rem 2rem;
+        min-width: 200px;
+
+        &:hover{
+            background: $color;
+        }
+    }
+    .danger-btn{@include btn($danger);}
+    .add-btn{@include btn($light-blue);}
+    .user-card{
+        border: 1px solid $nav-border;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: transform .1s;
+        max-width: 90%;
+
+        &:hover{
+            transform: scale(1.02);
+        }
+
+        .card-title{
+            font-size: 2rem;
+        }
+    }
+
     .ChatRoom{
         display: flex;
 
         .users-scrollbar{
             background: $nav-border;
             min-width: 100px;
+        }
+
+        .chat-container{
+
+            input{
+                border: none;
+                outline: none;
+                color: $black;
+                padding: .5rem .7rem;
+
+                &:focus{
+                    outline: 1px solid $cyan;
+                }
+            }
+            button{
+                background: $danger;
+            }
         }
     }
 }

@@ -13,40 +13,40 @@ export default function Profile() {
   useEffect(() => {
     if (loggedIn){
       setProfile({
-          image: LOCAL_STORAGE.profile,
-          name: LOCAL_STORAGE.name,
-          password: LOCAL_STORAGE.password,
+        image: LOCAL_STORAGE.profile,
+        name: LOCAL_STORAGE.name,
+        password: LOCAL_STORAGE.password,
       })
     }
   }, [loggedIn])
 
   return (
     <div className='Profile'>
-        {
-          loggedIn ? (
-              <>
-                  <h2>PROFILE</h2>
-                  <img src={profile.image} alt={profile.name} />
-                  <p>Username: {profile.name}</p>
-                  <p>Password: {profile.password}</p>
-                  <h2>CONNECTED USERS:</h2>
-                  {
-                    savedUsers.map((item, i) => {
-                      return (
-                        <div key={i} style={{border: "1px solid black", marginBottom: '1rem'}}>
-                          <img src={item.profile} alt={item.name} />
-                          <p>{item.name}</p>
-                        </div>
-                      )
-                    })
-                  }
-              </>
-          ) : (
-              <>
-                  <p>Not Logged In -Profile</p>
-              </>
-          )
-        }
+      {
+        loggedIn ? (
+          <>
+            <p className='heading'>Profile</p>
+            <img src={profile.image} alt={profile.name} />
+            <p>Username: {profile.name}</p>
+            <p>Password: {profile.password}</p>
+            <h2>CONNECTED USERS:</h2>
+            {
+              savedUsers.map((item, i) => {
+                return (
+                  <div key={i} style={{border: "1px solid black", marginBottom: '1rem'}}>
+                    <img src={item.profile} alt={item.name} />
+                    <p>{item.name}</p>
+                  </div>
+                )
+              })
+            }
+          </>
+        ) : (
+          <>
+              <p>Not Logged In -Profile</p>
+          </>
+        )
+      }
     </div>
   )
 }
