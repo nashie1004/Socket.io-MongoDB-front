@@ -108,7 +108,9 @@ export default function ChatRoom() {
                     socketID = `${item.name}-${LOCAL_STORAGE.name}`
                   } 
 
-                  return <div key={i} className='display-user'>
+                  return <div key={i} className='display-user' 
+                    style={{background: params.roomID === socketID ? 'rgb(8, 25, 46)' : 'none'}}
+                  >
                     <img src={item.profile} alt={item.name} />
                     <Link to={`/chat/${socketID}`}>
                       {item.name}

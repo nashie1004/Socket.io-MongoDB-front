@@ -154,11 +154,10 @@ body{
     }
     .ChatRoom{
         display: flex;
-        height: 650px;
+        min-height: 90vh;
 
         & > *{
             flex: 1;
-            min-height: 100%;
             outline: 1px dashed $lime;
         }
 
@@ -174,6 +173,7 @@ body{
                 align-items: center;
                 gap: .7rem;
                 margin-bottom: .5rem;
+                transition: transform .1s ease-in-out, background .1s ease-in-out;
 
                 img{
                     border-radius: 50%;
@@ -181,6 +181,11 @@ body{
                     height: 60px;
                 }
                 a{text-transform: capitalize;}
+
+                &:hover{
+                    transform: scale(1.02);
+                    background: rgb(8, 25, 46);
+                }
             }
         }
 
@@ -188,6 +193,7 @@ body{
             flex: 75%;
             display: flex;
             flex-direction: column;
+            height: 100%;
 
             .messages-main-container{
                 overflow-y: scroll;
@@ -195,6 +201,7 @@ body{
                 display: grid;
                 gap: .5rem;
                 padding: .5rem;
+                max-height: calc(50vh);
 
                 .L-right{
                     width: 100%;
