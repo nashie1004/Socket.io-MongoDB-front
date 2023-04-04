@@ -95,9 +95,7 @@ export default function ChatRoom() {
       {
         loggedIn ? (
           <>
-          {/* CHANGE BRANCH: ADD STYLING */}
             <div className="users-scrollbar">
-              <h2>USERS</h2>
               {
                 savedUsers.map((item, i) => {
                   const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
@@ -108,34 +106,29 @@ export default function ChatRoom() {
                     socketID = `${LOCAL_STORAGE.name}-${item.name}` 
                   } else {
                     socketID = `${item.name}-${LOCAL_STORAGE.name}`
-                  } //
+                  } 
 
-                  return <div key={i} style={{border: '1px solid black'}}>
+                  return <div key={i} className='display-user'>
                     <img src={item.profile} alt={item.name} />
-                    <p>{item.name}</p>
                     <Link to={`/chat/${socketID}`}>
-                      ID: {socketID}
+                      {item.name}
                     </Link>
                   </div>
                 })
               }               
             </div>
             <div className="chat-container">
-              <input 
-                onChange={e => setCurrentMessage(e.target.value)}
-                type="text" placeholder='Message' />
-              <button onClick={handleMessage}>Submit Message</button>
-              <h2>MESSAGES: </h2>
-                {/* 
-                ADD THIS: 
-                window.scrollTo(0, document.body.scrollHeight);
-                */}
+              {/* 
+              ADD THIS: 
+              window.scrollTo(0, document.body.scrollHeight);
+              */}
+              <div className="messages-main-container">
                 {
                   !loadingMessages ? (
                     messagesArray.map((item, i) => {
-                      return <p key={i}>
+                      return <div key={i} className='L'>
                         {item.name}: {item.message} <span style={{fontSize: '.7rem'}}>{item.time}</span>
-                      </p>
+                      </div>
                     })
                   ) : (
                     <>
@@ -143,6 +136,13 @@ export default function ChatRoom() {
                     </>
                   )
                 }
+              </div>
+              <div className='controls'>
+                <input 
+                  onChange={e => setCurrentMessage(e.target.value)}
+                  type="text" placeholder='Message' />
+                <button onClick={handleMessage}>Send</button>
+              </div>
             </div>
           </>
         ) : (

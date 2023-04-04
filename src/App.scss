@@ -1,7 +1,7 @@
 $nav-border: rgb(22, 24, 56);
 $black: black;
 $dodger: dodgerblue;
-$bg: #061629;
+$bg: #020e1d;
 $white: white;
 $light-blue: #517592;
 $border: #2E5C82;
@@ -22,8 +22,13 @@ $red: red;
     font-family: 'Lato', sans-serif;
     // outline: 1px dashed limegreen;    
 }
-.App{
+body{
     min-height: 100vh;
+}
+#root, .App{
+    min-height: 100vh !important;
+}
+.App{
     background: $bg;
 
     button{
@@ -101,7 +106,7 @@ $red: red;
     .add-btn{@include btn($cyan);}
     .card-container{
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); //340px
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); //340px
         grid-auto-rows: 500px;
         width: 100%;
 
@@ -147,26 +152,68 @@ $red: red;
     }
     .ChatRoom{
         display: flex;
+        min-height: 100%;
+
+        & > *{
+            flex: 1;
+            min-height: 100%;
+        }
 
         .users-scrollbar{
-            background: $nav-border;
-            min-width: 100px;
+            flex: 25%;
+            min-width: 170px;
+
+            .display-user{
+                border-bottom: 1px solid $nav-border;
+                display: flex;
+                padding: .5rem;
+                align-items: center;
+                gap: .7rem;
+
+                img{
+                    border-radius: 50%;
+                    width: 60px;
+                    height: 60px;
+                }
+                a{text-transform: capitalize;}
+            }
         }
 
         .chat-container{
+            flex: 75%;
+            display: flex;
+            flex-direction: column;
 
-            input{
-                border: none;
-                outline: none;
-                color: $black;
-                padding: .5rem .7rem;
+            .messages-main-container{
+                overflow-y: scroll;
+                flex: 1;
 
-                &:focus{
-                    outline: 1px solid $cyan;
+                .L{
+                    width: 100%;
                 }
             }
-            button{
-                background: $danger;
+
+            .controls{
+                display: flex;
+                padding: .5rem;
+                gap: .5rem;
+
+                input{ 
+                    flex: 1;
+                    border: none;
+                    outline: none;
+                    color: $black;
+                    padding: .5rem .7rem;
+                    min-width: auto;
+
+                    &:focus{
+                        outline: 1px solid $cyan;
+                    }
+                }
+                button{
+                    padding-inline: 2rem;
+                    background: $danger;
+                }
             }
         }
     }
@@ -192,6 +239,19 @@ $red: red;
             flex-direction: column;
             width: 100%;
             display: none !important;
+        }
+    }
+    .ChatRoom{
+        flex-wrap: wrap;
+
+        .users-scrollbar{
+            overflow-x: scroll;
+            flex-direction: row-reverse;
+            display: flex;
+
+            & > *{
+                min-width: 200px;
+            }
         }
     }
 }
