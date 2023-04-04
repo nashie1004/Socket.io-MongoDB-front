@@ -44,7 +44,7 @@ export default function Register() {
       {
         loggedIn ? (
           <>
-            <p>Already Logged In</p>
+            <p>Already Registered and Logged In</p>
           </>
         ) : (
           <>

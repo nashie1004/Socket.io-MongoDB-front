@@ -8,6 +8,7 @@ export default function ChatRoom() {
   const {loggedIn, socket} = useContext(Data)
   const [currentMessage, setCurrentMessage] = useState('');
   const [messagesArray, setMessagesArray] = useState([]);
+  const [loadingMessages, setLoadingMessages] = useState(false);
   let params = useParams();
   let testRef = useRef(null)
 
@@ -27,6 +28,7 @@ export default function ChatRoom() {
   //PRELOADS AND SAVES CONVO
   useEffect(() => {
     if (loggedIn){
+      setLoadingMessages(true)
       socket.emit('joinRoom', params.roomID)
       
       const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
@@ -50,6 +52,7 @@ export default function ChatRoom() {
 
         if (res.status === 'ok'){
           setMessagesArray(res.data.messages[to])
+          setLoadingMessages(false)
         }
       }
 
@@ -92,8 +95,15 @@ export default function ChatRoom() {
     <div className='ChatRoom'>
       {
         loggedIn ? (
-          messagesArray.length !== 0 ? (
+          !loadingMessages ? (
             <>
+            {/* CHANGE BRANCH: ADD STYLING */}
+              <div className="users-scrollbar">
+
+              </div>
+              <div className="chat-container">
+
+              </div>
               <h2>ROOM: {params.roomID}</h2>
               <input 
                 onChange={e => setCurrentMessage(e.target.value)}
