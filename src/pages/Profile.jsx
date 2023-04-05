@@ -28,9 +28,16 @@ export default function Profile() {
             <div className="img">
               <img src={profile.image} alt={profile.name} />
             </div>
-            change to tooltip + modal
-            <p className='username'>{profile.name}</p>
-            <p className='password'>{profile.password}</p>
+            <div className="left">
+              <p className='username'>Change Information</p>
+              <input type="text" 
+              placeholder='Change Name...'
+              />
+              <input type="text" 
+              placeholder='Change Password...'
+              />
+              <button>Change Info</button>
+            </div>
           </div>
         ) : (
           <>
