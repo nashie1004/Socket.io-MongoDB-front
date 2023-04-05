@@ -146,7 +146,9 @@ export default function ChatRoom() {
                 }
               </div>
               <div className="msgs-controls">
-                <input type="text" />
+                <input 
+                  onChange={e => setCurrentMessage(e.target.value)}
+                  type="text" placeholder='Message' />
                 <button onClick={handleMessage}>Send</button>
               </div>
             </div>

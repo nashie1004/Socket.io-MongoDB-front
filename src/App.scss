@@ -37,10 +37,6 @@ body{
     grid-template-rows: auto 1fr;
     grid-auto-columns: 100%;
 
-    // & > *{
-    //     outline: 1px dashed limegreen;    
-    // }
-
     .Nav{
         border-bottom: 1px solid $nav-border;
         display: flex;
@@ -162,14 +158,11 @@ body{
     .ChatRoom{
         display: flex;
 
-        & > *{
-            outline: 1px dashed $lime;
-        }
-
         .chat-left{
             flex: 20%;
             min-width: 200px;
             padding: .5rem;
+            border-right: 1px solid $nav-border;
 
             .display-user{
                 border: 1px solid $nav-border;
@@ -202,7 +195,6 @@ body{
                 overflow-y: scroll;
                 width: 100%;
                 height: 85vh;
-                outline: 3px dashed $blue;
 
                 @mixin msgBox($color){
                     background: $color;
@@ -255,15 +247,6 @@ body{
                     background: $danger;
                 }
             }
-        }
-
-        .chat-container{
-            flex: 75%;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-
-            
         }
     }
     .Users, .Chat{
@@ -449,17 +432,6 @@ body{
                 height: min(73vh) !important;
             }
         }
-    //     .users-scrollbar{
-    //         overflow-x: scroll;
-    //         flex-direction: row-reverse;
-    //         display: flex;
-    //         gap: .5rem;
-    //         height: 80px;
-
-    //         & > *{
-    //             min-width: 200px;
-    //         }
-    //     }
     }
     .Register, .Login{
         .form{
