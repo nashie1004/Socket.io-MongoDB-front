@@ -109,7 +109,7 @@ export default function ChatRoom() {
                   } 
 
                   return <div key={i} className='display-user' 
-                    style={{background: params.roomID === socketID ? 'rgb(8, 25, 46)' : 'none'}}
+                    style={{background: params.roomID === socketID ? 'black' : 'none'}}
                   >
                     <img src={item.profile} alt={item.name} />
                     <Link to={`/chat/${socketID}`}>

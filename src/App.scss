@@ -33,10 +33,9 @@ body{
 .App{
     background: $bg;
 
-    & > *{
-        outline: 1px dashed limegreen;    
-    }
-
+    // & > *{
+    //     outline: 1px dashed limegreen;    
+    // }
 
     .Nav{
         border-bottom: 1px solid $nav-border;
@@ -261,7 +260,35 @@ body{
         padding: 1rem;
     }
     .Profile{
-        //
+        display: grid;
+        place-items: center;
+
+        .profile-container{
+            background: $black;
+            border: 1px solid $nav-border;
+            padding: 3rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .img{
+                padding: .5rem;
+                border: 1px solid $cyan;
+
+                img{
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+            .username{
+                font-weight: bold;
+                font-size: 2.2rem;
+                text-transform: capitalize;
+            }
+            .password{
+                color: $cyan;
+            }
+        }
     }
     .Register, .Login{
         display: grid;
@@ -316,6 +343,16 @@ body{
             }
         }
     }
+    .NoMatch{
+        div, a{
+            font-size: .85rem;
+            color: $cyan;
+        }
+        div{
+            text-align: center;
+            min-width: 100%;
+        }
+    }
 }
 
 @media only screen and (max-width: 560px) {
@@ -340,6 +377,9 @@ body{
             display: none !important;
         }
     }
+    .heading{
+        font-size: 2rem !important;
+    }
     .ChatRoom{
         flex-wrap: wrap;
 
@@ -348,6 +388,7 @@ body{
             flex-direction: row-reverse;
             display: flex;
             gap: .5rem;
+            height: 80px;
 
             & > *{
                 min-width: 200px;

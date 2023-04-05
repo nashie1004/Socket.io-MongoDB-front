@@ -65,7 +65,7 @@ export default function Login() {
               onChange={e => setPassword(e.target.value)}
               type="text" 
               placeholder='Password' /><br />
-            <button onClick={handleSubmit}>Register</button>
+            <button onClick={handleSubmit}>Login</button>
         </div>
       )
     }
