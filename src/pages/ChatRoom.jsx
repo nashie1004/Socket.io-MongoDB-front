@@ -95,8 +95,49 @@ export default function ChatRoom() {
       {
         loggedIn ? (
           <>
-            <div className="users-scrollbar">
-              {
+            <div className='chat-left'>
+              <span>Lorem, ipsum.</span><span>Explicabo, optio.</span><span>Ipsam, facilis?</span><span>Illo, iure!</span><span>Tenetur, dolorem?</span><span>Obcaecati, fuga?</span><span>Earum, consequatur.</span><span>Similique, asperiores?</span><span>Quia, et.</span><span>Beatae, quibusdam.</span>
+            </div>
+            <div className='chat-right'>
+              <div className="msgs-box-main">
+                <p>Lorem.</p>
+                <p>Odio!</p>
+                <p>At.</p>
+                <p>A!</p>
+                <p>Perspiciatis?</p>
+                <p>Harum?</p>
+                <p>Saepe?</p>
+                <p>Odit?</p>
+                <p>Assumenda!</p>
+                <p>Repellat.</p>
+                <p>Recusandae?</p>
+                <p>Facilis.</p>
+                <p>Numquam!</p>
+                <p>Distinctio?</p>
+                <p>Quo.</p>
+                <p>Accusamus.</p>
+                <p>Labore!</p>
+                <p>Inventore.</p>
+                <p>Sapiente.</p>
+                <p>Alias.</p>
+                <p>Blanditiis.</p>
+                <p>Numquam.</p>
+                <p>Tempore!</p>
+                <p>Praesentium!</p>
+                <p>Repellat.</p>
+                <p>Quasi.</p>
+                <p>Quod.</p>
+                <p>Laboriosam?</p>
+                <p>Odit.</p>
+                <p>Non?</p>
+              </div>
+              <div className="msgs-controls">
+                <input type="text" />
+                <button>test</button>
+              </div>
+            </div>
+            {/* <div className="users-scrollbar"> */}
+              {/*
                 savedUsers.map((item, i) => {
                   const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
                   const lower = LOCAL_STORAGE.name.localeCompare(item.name)
@@ -117,14 +158,10 @@ export default function ChatRoom() {
                     </Link>
                   </div>
                 })
-              }               
-            </div>
-            <div className="chat-container">
-              {/* 
-              ADD THIS: 
-              window.scrollTo(0, document.body.scrollHeight);
-              */}
-              <div className="messages-main-container">
+              */}               
+            {/* </div>
+            <div className="chat-container"> */}
+              {/* <div className="messages-main-container">
                 {
                   !loadingMessages ? (
                     messagesArray.map((item, i) => {
@@ -154,8 +191,8 @@ export default function ChatRoom() {
                   onChange={e => setCurrentMessage(e.target.value)}
                   type="text" placeholder='Message' />
                 <button onClick={handleMessage}>Send</button>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
           </>
         ) : (
           <>

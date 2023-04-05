@@ -35,6 +35,7 @@ body{
     background: $bg;
     display: grid;
     grid-template-rows: auto 1fr;
+    grid-auto-columns: 100%;
 
     // & > *{
     //     outline: 1px dashed limegreen;    
@@ -160,11 +161,33 @@ body{
     //PAGES
     .ChatRoom{
         display: flex;
-        min-height: 90vh;
 
         & > *{
-            flex: 1;
             outline: 1px dashed $lime;
+        }
+
+        .chat-left{
+            flex: 20%;
+            min-width: 200px;
+        }
+        .chat-right{
+            flex: 80%;
+            display: flex;
+            flex-direction: column;
+
+            .msgs-box-main{
+                overflow-y: scroll;
+                width: 100%;
+                height: 85vh;
+
+                outline: 3px dashed $blue;
+            }
+            .msgs-controls{
+                width: 100%;
+                height: 70px;
+                flex: 1;
+                outline: 3px dashed $danger;
+            }
         }
 
         .users-scrollbar{
@@ -419,19 +442,37 @@ body{
         font-size: 2rem !important;
     }
     .ChatRoom{
-        flex-wrap: wrap;
-
-        .users-scrollbar{
-            overflow-x: scroll;
-            flex-direction: row-reverse;
-            display: flex;
-            gap: .5rem;
+        flex-direction: column;
+        
+        .chat-left{
             height: 80px;
+            overflow-x: scroll;
+            max-width: 100%;
+            white-space: nowrap;
+            max-height: 90px;
 
-            & > *{
-                min-width: 200px;
+            span{
+                display: inline-block;
             }
         }
+        .chat-right{
+            height: calc(100% - 80px);
+
+            .msgs-box-main{
+                height: min(73vh) !important;
+            }
+        }
+    //     .users-scrollbar{
+    //         overflow-x: scroll;
+    //         flex-direction: row-reverse;
+    //         display: flex;
+    //         gap: .5rem;
+    //         height: 80px;
+
+    //         & > *{
+    //             min-width: 200px;
+    //         }
+    //     }
     }
     .Register, .Login{
         .form{
