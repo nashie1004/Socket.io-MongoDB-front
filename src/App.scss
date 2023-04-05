@@ -35,6 +35,7 @@ body{
     background: $bg;
     display: grid;
     grid-template-rows: auto 1fr;
+    grid-auto-columns: 1fr;
 
     // & > *{
     //     outline: 1px dashed limegreen;    
@@ -48,6 +49,7 @@ body{
         padding: .5rem 1rem;
         gap: .5rem;
         transition: height .2s ease-in-out;
+        
         p{
             font-size: 1.5rem;
             display: flex;
@@ -63,7 +65,6 @@ body{
                 font-size: 1.5rem;
             }
         }
-
         .showLinks{display: flex !important;}
         .links{
             display: flex;
@@ -163,7 +164,6 @@ body{
         min-height: 90vh;
 
         & > *{
-            flex: 1;
             outline: 1px dashed $lime;
         }
 
@@ -207,7 +207,7 @@ body{
                 display: grid;
                 gap: .5rem;
                 padding: .5rem;
-                max-height: calc(50vh);
+                max-height: calc(81vh);
 
                 .L-right{
                     width: 100%;
@@ -427,10 +427,14 @@ body{
             display: flex;
             gap: .5rem;
             height: 80px;
+            outline: 1px dashed $lime;
 
             & > *{
                 min-width: 200px;
             }
+        }
+        .messages-main-container{
+            // max-height: calc(80vh);
         }
     }
     .Register, .Login{
