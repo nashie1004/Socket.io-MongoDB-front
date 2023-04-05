@@ -194,7 +194,7 @@ body{
             .msgs-box-main{
                 overflow-y: scroll;
                 width: 100%;
-                height: 85vh;
+                height: 84vh;
 
                 @mixin msgBox($color){
                     background: $color;
@@ -223,20 +223,23 @@ body{
             }
             .msgs-controls{
                 width: 100%;
-                height: 70px;
                 flex: 1;
+                border-top: 1px solid $nav-border;
 
                 display: flex;
-                // padding: .5rem;
-                // gap: .5rem;
+                gap: .5rem;
+                align-items: center;
 
                 input{ 
-                    flex: 1;
                     border: none;
                     outline: none;
                     color: $black;
                     padding: .5rem .7rem;
                     min-width: auto;
+                    height: 20px;
+                    font-size: 1rem;
+                    flex: 1;
+                    margin-left: .5rem;
 
                     &:focus{
                         outline: 3px solid $dodger;
@@ -245,6 +248,9 @@ body{
                 button{
                     padding-inline: 2rem;
                     background: $danger;
+                    height: 37px;
+                    font-size: 1rem;
+                    margin-right: .5rem;
                 }
             }
         }
