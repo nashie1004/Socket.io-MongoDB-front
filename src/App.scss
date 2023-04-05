@@ -10,6 +10,7 @@ $cyan: #69F5FF;
 $red: red;
 $lime: limegreen;
 $green: green;
+$hover-card: rgb(8, 25, 46);
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
@@ -22,7 +23,6 @@ $green: green;
     color: $white;
     font-size: 1.1rem;
     font-family: 'Lato', sans-serif;
-    // outline: 1px dashed limegreen;    
 }
 body{
     min-height: 100vh;
@@ -33,13 +33,10 @@ body{
 .App{
     background: $bg;
 
-    button{
-        outline: none;
-        border: none;
-        padding: .5rem 1rem;
-        cursor: pointer;
-        background: none;
+    & > *{
+        outline: 1px dashed limegreen;    
     }
+
 
     .Nav{
         border-bottom: 1px solid $nav-border;
@@ -89,11 +86,6 @@ body{
     }
 
     //GENERAL 
-    .heading{
-        font-size: 2.5rem;
-        font-weight: bold;
-        text-align: center;
-    }
     @mixin btn($color){
         border: 1px solid $color;
         padding: 1rem 2rem;
@@ -104,8 +96,24 @@ body{
             background: $color;
         }
     }
-    .danger-btn{@include btn($red);}
-    .add-btn{@include btn($cyan);}
+    button{
+        outline: none;
+        border: none;
+        padding: .5rem 1rem;
+        cursor: pointer;
+        background: none;
+    }
+    .heading{
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+    }
+    .danger-btn{
+        @include btn($red);
+    }
+    .add-btn{
+        @include btn($cyan);
+    }
     .card-container{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); //340px
@@ -129,7 +137,7 @@ body{
 
             &:hover{
                 transform: scale(1.02);
-                background: rgb(8, 25, 46);
+                background: $hover-card;
             }
     
             img{
@@ -147,11 +155,8 @@ body{
             }
         }
     }
-    .Users, .Chat{
-        display: grid;
-        place-items: center;
-        padding: 1rem;
-    }
+    
+    //PAGES
     .ChatRoom{
         display: flex;
         min-height: 90vh;
@@ -250,6 +255,67 @@ body{
             }
         }
     }
+    .Users, .Chat{
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+    }
+    .Profile{
+        //
+    }
+    .Register, .Login{
+        display: grid;
+        place-items: center;
+
+        .form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid $nav-border;
+            padding: 3rem 4rem;
+            background: $black;
+            max-width: 350px;
+
+            & > *{
+                width: 100%;
+            }
+
+            p{
+                text-align: center;
+                font-size: 2.3rem;
+                font-weight: bold;
+            }
+            .img{   
+                border-radius: 50%;
+                width: 160px;
+                height: 160px;
+                border: 1px solid $cyan;
+                outline: none;
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                }
+            }
+            input{
+                padding: .7rem 1.5rem;
+                color: $white;
+                outline: none;
+                border: 1px solid $cyan;
+                background: none;
+                border-radius: 5rem;
+                width: 100%;
+            }
+            button{
+                padding: 1rem 3rem;
+                background: $cyan;
+                color: $bg;
+                font-size: 1.2rem;
+                width: 100%;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width: 560px) {
@@ -286,6 +352,11 @@ body{
             & > *{
                 min-width: 200px;
             }
+        }
+    }
+    .Register, .Login{
+        .form{
+            padding: 2rem 3rem !important; 
         }
     }
 }

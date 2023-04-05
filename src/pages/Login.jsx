@@ -50,17 +50,23 @@ export default function Login() {
           <p>Already Logged In</p>
         </>
       ) : (
-        <>
-          <input 
-            onChange={e => setName(e.target.value)}
-            type="text" 
-            placeholder='Name' /><br />
-          <input 
-            onChange={e => setPassword(e.target.value)}
-            type="text" 
-            placeholder='Password' /><br />
-          <button onClick={handleSubmit}>Log In</button>
-        </>
+        <div className='form'>
+          <p>Log in to Your Account</p>
+            <br />
+            <div className="img">
+              {/* <img src="" alt="pfp" /> */}
+            </div>
+            <br />
+            <input 
+              onChange={e => setName(e.target.value)}
+              type="text" 
+              placeholder='Name' /><br />
+            <input 
+              onChange={e => setPassword(e.target.value)}
+              type="text" 
+              placeholder='Password' /><br />
+            <button onClick={handleSubmit}>Register</button>
+        </div>
       )
     }
     </div>

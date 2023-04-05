@@ -47,7 +47,13 @@ export default function Register() {
             <p>Already Registered and Logged In</p>
           </>
         ) : (
-          <>
+          <div className='form'>
+            <p>Create an Account</p>
+            <br />
+            <div className="img">
+              {/* <img src="" alt="pfp" /> */}
+            </div>
+            <br />
             <input 
               onChange={e => setName(e.target.value)}
               type="text" 
@@ -57,7 +63,7 @@ export default function Register() {
               type="text" 
               placeholder='Password' /><br />
             <button onClick={handleSubmit}>Register</button>
-          </>
+          </div>
         )
       }
     </div>
