@@ -147,25 +147,9 @@ export default function ChatRoom() {
               </div>
               <div className="msgs-controls">
                 <input type="text" />
-                <button>test</button>
+                <button onClick={handleMessage}>Send</button>
               </div>
             </div>
-            {/* <div className="users-scrollbar"> */}
-              {/*
-                
-              */}               
-            {/* </div>
-            <div className="chat-container"> */}
-              {/* <div className="messages-main-container">
-
-              </div>
-              <div className='controls'>
-                <input 
-                  onChange={e => setCurrentMessage(e.target.value)}
-                  type="text" placeholder='Message' />
-                <button onClick={handleMessage}>Send</button>
-              </div> */}
-            {/* </div> */}
           </>
         ) : (
           <>
