@@ -1,39 +1,53 @@
 import React, {useContext} from 'react'
 import {Data} from '../App';
+import {Link} from 'react-router-dom'
 
 export default function Users() {
   const {handleButton, loggedIn, allUsers} = useContext(Data)
 
   return (
     <div className='Users'>
-      <h2>ALL USERS: </h2>
       {
         loggedIn ? (
-          allUsers.map((item, i) => {
-            return <div key={i} style={{border: "1px solid black", marginBottom: '1rem'}}>
-              <img src={item.profile} alt={item.name} />
-              <p>{item.name}</p>
+          <>
+            <p className='heading'>Connect with other users</p>
+            <div className="card-container">
               {
-                item.added ? (
-                  <button 
-                    onClick={() => handleButton(item.name, item.added, item.profile)}
-                    style={{background: 'red'}}>
-                    Remove User
-                  </button>
-                ) : (
-                  <button 
-                    onClick={() => handleButton(item.name, item.added, item.profile)}
-                    style={{background: 'lightblue'}}>
-                    Add User
-                  </button>
-                )
+                allUsers.map((item, i) => {
+                  return <div key={i} className='user-card'>
+                    <img src={item.profile} alt={item.name} />
+                    <p className='card-title'>{item.name}</p>
+                    {
+                      item.added ? (
+                        <button 
+                          onClick={() => handleButton(item.name, item.added, item.profile)}
+                          className='danger-btn'>
+                          Remove User
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={() => handleButton(item.name, item.added, item.profile)}
+                          className='add-btn'>
+                          Add User
+                        </button>
+                      )
+                    }
+                  </div>
+                })
               }
             </div>
-          })
-        ) : (
-          <>
-            <p>Not Logged In -Users</p>
           </>
+        ) : (
+          <div className='notFound'>
+            <p className='heading'>Not Logged In</p>
+            <div>
+              <Link to='/register'>
+                Register
+              </Link> or <Link to='/login'>
+                Login
+              </Link>
+            </div>
+          </div>
         )
       }
     </div>

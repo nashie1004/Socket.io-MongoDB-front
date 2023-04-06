@@ -7,50 +7,64 @@ export default function Chat() {
   
   return (
     <div className='Chat'>
-      <h2>CONNECTED USERS: </h2>
       {
         loggedIn ? (
           <>
+            <p className='heading'>Connected Users</p>
             {
               savedUsers.length !== 0 ? (
-                savedUsers.map((item, i) => {
-                  const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
-                  const lower = LOCAL_STORAGE.name.localeCompare(item.name)
-                  let socketID = ''
-
-                  if (lower == -1){
-                    socketID = `${LOCAL_STORAGE.name}-${item.name}` 
-                  } else {
-                    socketID = `${item.name}-${LOCAL_STORAGE.name}`
-                  } //
-
-                  return (
-                    <div style={{border: '1px solid black', marginBottom: '1rem'}} key={i}>
-                      <img src={item.profile} alt={item.name} />
-                      <p>{item.name}</p>
-                      <Link to={`/chat/${socketID}`} key={i}>
-                        SocketID: {socketID}
-                      </Link>
-                      <br/>
-                      <button 
-                        onClick={() => handleButton(item.name, true, item.profile)}
-                        style={{background: 'red'}}>
-                        Remove User
-                      </button>
-                    </div>
-                  )
-                })
+                <div className="card-container">
+                  {
+                    savedUsers.map((item, i) => {
+                      const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
+                      const lower = LOCAL_STORAGE.name.localeCompare(item.name)
+                      let socketID = ''
+    
+                      if (lower == -1){
+                        socketID = `${LOCAL_STORAGE.name}-${item.name}` 
+                      } else {
+                        socketID = `${item.name}-${LOCAL_STORAGE.name}`
+                      } //
+    
+                      return (
+                        <div className='user-card' key={i}>
+                          <img src={item.profile} alt={item.name} />
+                          <div style={{color: '#69F5FF', fontSize: '.8rem'}}>
+                            Chat with 
+                            <br/>
+                            <Link to={`/chat/${socketID}`} key={i}
+                            className='card-title'>
+                              {item.name}
+                            </Link>
+                          </div>
+                          <button 
+                            onClick={() => handleButton(item.name, true, item.profile)}
+                            className='danger-btn'>
+                            Remove User
+                          </button>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
               ) : (
-                <>
-                  <p>No Connected User yet</p>
-                </>
+                <Link to='/users' style={{color: '#69F5FF'}}>
+                  No connected users yet, chat with others now.
+                </Link>
               )
             }
           </>
         ) : (
-          <>
-            <p>Not Logged In -Chat</p>
-          </>
+          <div className='notFound'>
+            <p className='heading'>Not Logged In</p>
+            <div>
+              <Link to='/register'>
+                Register
+              </Link> or <Link to='/login'>
+                Login
+              </Link>
+            </div>
+          </div>
         )
       }
     </div>

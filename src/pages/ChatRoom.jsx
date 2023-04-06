@@ -1,13 +1,12 @@
 import React, {useState, useContext, useEffect, useRef} from 'react'
 import { Data } from '../App';
-import { useParams } from "react-router-dom";
-
-const BASE = 'http://localhost:3001'
+import { useParams, Link } from "react-router-dom";
 
 export default function ChatRoom() {
-  const {loggedIn, socket} = useContext(Data)
+  const {loggedIn, socket, savedUsers, BASE} = useContext(Data)
   const [currentMessage, setCurrentMessage] = useState('');
   const [messagesArray, setMessagesArray] = useState([]);
+  const [loadingMessages, setLoadingMessages] = useState(false);
   let params = useParams();
   let testRef = useRef(null)
 
@@ -15,7 +14,8 @@ export default function ChatRoom() {
     setMessagesArray(prev => [...prev, {
       name: data.name, 
       message: data.message,
-      time: data.time
+      time: data.time,
+      profile: data.profile
     }])
   })
 
@@ -27,6 +27,7 @@ export default function ChatRoom() {
   //PRELOADS AND SAVES CONVO
   useEffect(() => {
     if (loggedIn){
+      setLoadingMessages(true)
       socket.emit('joinRoom', params.roomID)
       
       const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
@@ -50,11 +51,11 @@ export default function ChatRoom() {
 
         if (res.status === 'ok'){
           setMessagesArray(res.data.messages[to])
+          setLoadingMessages(false)
         }
       }
 
       return () => {
-        
         saveConversation()
         async function saveConversation(){
           const response = await fetch(BASE + '/saveConversation', {
@@ -77,14 +78,16 @@ export default function ChatRoom() {
       }
 
     } else console.log('not log in')
-  }, [])
+  }, [params])
 
   function handleMessage(){
     if (currentMessage !== ''){
       socket.emit('sendMessageToServer', {
         message: currentMessage, time: new Date().toLocaleTimeString(),
+        profile: JSON.parse(localStorage.getItem('token')).profile,
         room: params.roomID, name: JSON.parse(localStorage.getItem('token')).name
       })
+      setCurrentMessage('')
     }
   }
 
@@ -92,35 +95,78 @@ export default function ChatRoom() {
     <div className='ChatRoom'>
       {
         loggedIn ? (
-          messagesArray.length !== 0 ? (
-            <>
-              <h2>ROOM: {params.roomID}</h2>
-              <input 
-                onChange={e => setCurrentMessage(e.target.value)}
-                type="text" placeholder='Message' />
-              <button onClick={handleMessage}>Submit Message</button>
-              <h2>MESSAGES: </h2>
-                {/* 
-                ADD THIS: //
-                window.scrollTo(0, document.body.scrollHeight);
-                */}
-                {
-                  messagesArray.map((item, i) => {
-                    return <p key={i}>
-                      {item.name}: {item.message} <span style={{fontSize: '.7rem'}}>{item.time}</span>
-                    </p>
-                  })
-                }
-            </>
-          ) : (
-            <>
-              <p>Loading...</p>
-            </>
-          )
-        ) : (
           <>
-            <p>Not Logged In -ChatRoom</p>
+            <div className='chat-left'>
+              {
+                savedUsers.map((item, i) => {
+                  const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
+                  const lower = LOCAL_STORAGE.name.localeCompare(item.name)
+                  let socketID = ''
+
+                  if (lower == -1){
+                    socketID = `${LOCAL_STORAGE.name}-${item.name}` 
+                  } else {
+                    socketID = `${item.name}-${LOCAL_STORAGE.name}`
+                  } 
+
+                  return <div key={i} className='display-user' 
+                    style={{background: params.roomID === socketID ? 'rgb(46, 92, 130, 0.35)' : 'none'}}
+                  >
+                    <img src={item.profile} alt={item.name} />
+                    <Link to={`/chat/${socketID}`}>
+                      {item.name}
+                    </Link>
+                  </div>
+                })
+              }
+            </div>
+            <div className='chat-right'>
+              <div className="msgs-box-main">
+              {
+                  !loadingMessages ? (
+                    messagesArray.map((item, i) => {
+                      if (item.name === JSON.parse(localStorage.getItem('token')).name){
+                        return <div key={i} className='L-right'>
+                          <div className="msg-content">
+                            {item.message}
+                            <span className='msg-time'>
+                              {item.time}
+                            </span>
+                          </div>
+                          <div className="img">
+                            <img src={item.profile} alt={item.name} />
+                          </div>
+                        </div>
+                      } else {
+                        return <div key={i} className='L-left'>
+                          <div className="img">
+                            <img src={item.profile} alt={item.name} />
+                          </div>
+                          <div className="msg-content">
+                            {item.message}
+                            <span className='msg-time'>
+                              {item.time}
+                            </span>
+                          </div>
+                        </div>
+                      }
+                    })
+                  ) : (
+                    <p className='loading'>Loading...</p>
+                  )
+                }
+              </div>
+              <div className="msgs-controls">
+                <input 
+                  value={currentMessage}
+                  onChange={e => setCurrentMessage(e.target.value)}
+                  type="text" placeholder='Message' />
+                <button onClick={handleMessage}>Send</button>
+              </div>
+            </div>
           </>
+        ) : (
+          <p>Not Logged In</p>
         )
       }
     </div>

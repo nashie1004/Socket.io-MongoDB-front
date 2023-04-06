@@ -2,12 +2,10 @@ import React, {useState, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { Data } from '../App';
 
-const BASE = 'http://localhost:3001'
-
 export default function Login() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const {loggedIn, setLoggedIn} = useContext(Data)
+  const {loggedIn, setLoggedIn, BASE} = useContext(Data)
   const redirect = useNavigate()
   
   async function handleSubmit(){
@@ -36,7 +34,7 @@ export default function Login() {
 
         localStorage.setItem('token', option)
         setLoggedIn(true)
-        redirect('/chat')
+        redirect('/users')
       } else {
         alert('Error: Check Name or Password')
       }
@@ -50,17 +48,19 @@ export default function Login() {
           <p>Already Logged In</p>
         </>
       ) : (
-        <>
-          <input 
-            onChange={e => setName(e.target.value)}
-            type="text" 
-            placeholder='Name' /><br />
-          <input 
-            onChange={e => setPassword(e.target.value)}
-            type="text" 
-            placeholder='Password' /><br />
-          <button onClick={handleSubmit}>Log In</button>
-        </>
+        <div className='form'>
+          <p>Log in to Your Account</p>
+            <br />
+            <input 
+              onChange={e => setName(e.target.value)}
+              type="text" 
+              placeholder='Name' /><br />
+            <input 
+              onChange={e => setPassword(e.target.value)}
+              type="password" 
+              placeholder='Password' /><br />
+            <button onClick={handleSubmit}>Login</button>
+        </div>
       )
     }
     </div>

@@ -142,10 +142,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Data.Provider value={{
-          handleButton, socket,
+          handleButton, socket, BASE,
           loggedIn, setLoggedIn, 
           savedUsers, setSavedUsers, 
-          allUsers, setAllUsers
+          allUsers, setAllUsers,
+          callAllUsers, callSavedUsers
         }}>
           <Nav />
           <Routes>
