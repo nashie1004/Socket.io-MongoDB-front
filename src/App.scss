@@ -12,6 +12,7 @@ $lime: limegreen;
 $green: green;
 $hover-card: rgb(8, 25, 46);
 $blue: blue;
+$grey: grey;
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
 
@@ -353,10 +354,6 @@ body{
             background: $black;
             max-width: 350px;
 
-            & > *{
-                width: 100%;
-            }
-
             p{
                 text-align: center;
                 font-size: 2.3rem;
@@ -366,12 +363,15 @@ body{
                 border-radius: 50%;
                 width: 160px;
                 height: 160px;
-                border: 1px solid $cyan;
                 outline: none;
+                display: grid;
+                place-items: center;
+                border: 1px solid $cyan;
 
                 img{
-                    width: 100%;
-                    height: 100%;
+                    max-width: 85%;
+                    max-height: 85%;
+                    border-radius: 50%;
                     border: none;
                 }
             }
@@ -386,6 +386,46 @@ body{
 
                 &:focus{
                     border: 1px solid $dodger;
+                }
+            }
+            .profile-options{
+                min-width: 100%;
+                display: flex;
+                gap: .6rem;
+                align-items: center;
+                justify-content: center;
+
+                & > *{
+                    flex: 1;
+                }
+
+                input[type='text']{
+                    min-width: 20%;
+                }
+
+                input[type='color']{
+                    flex: 1;
+                    padding: none !important;
+                    display: grid;
+                    padding: none !important;
+                }
+
+                select{
+                    max-width: 150px;
+                    background: none;
+                    outline: 1px solid $cyan;
+                    color: $white;
+                    border: none;
+                    padding-block: .5rem;
+                    padding-left: 1rem;
+                    padding-right: .5rem;
+
+                    &:focus{
+                        outline: 1px solid $dodger;
+                    }
+                    option{
+                        background: $black;
+                    }
                 }
             }
             button{
@@ -465,6 +505,10 @@ body{
     .Register, .Login{
         .form{
             padding: 2rem 3rem !important; 
+
+            .profile-options{
+                flex-wrap: wrap;
+            }
         }
     }
     .profile-container{
