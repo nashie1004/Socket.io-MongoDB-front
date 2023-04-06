@@ -7,10 +7,10 @@ export default function Chat() {
   
   return (
     <div className='Chat'>
-      <p className='heading'>Connected Users</p>
       {
         loggedIn ? (
           <>
+            <p className='heading'>Connected Users</p>
             {
               savedUsers.length !== 0 ? (
                 <div className="card-container">
@@ -48,16 +48,23 @@ export default function Chat() {
                   }
                 </div>
               ) : (
-                <>
-                  <p>No Connected User yet</p>
-                </>
+                <Link to='/users' style={{color: '#69F5FF'}}>
+                  No connected users yet, chat with others now.
+                </Link>
               )
             }
           </>
         ) : (
-          <>
-            <p>Not Logged In -Chat</p>
-          </>
+          <div className='notFound'>
+            <p className='heading'>Not Logged In</p>
+            <div>
+              <Link to='/register'>
+                Register
+              </Link> or <Link to='/login'>
+                Login
+              </Link>
+            </div>
+          </div>
         )
       }
     </div>

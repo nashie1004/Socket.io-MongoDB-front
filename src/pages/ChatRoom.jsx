@@ -87,6 +87,7 @@ export default function ChatRoom() {
         message: currentMessage, time: new Date().toLocaleTimeString(),
         room: params.roomID, name: JSON.parse(localStorage.getItem('token')).name
       })
+      setCurrentMessage('')
     }
   }
 
@@ -127,26 +128,27 @@ export default function ChatRoom() {
                       if (item.name === JSON.parse(localStorage.getItem('token')).name){
                         return <div key={i} className='L-right'>
                           <p className="message-right">
-                            {item.name}: {item.message} <div style={{fontSize: '.7rem'}}>{item.time}</div>
+                            {item.message} 
+                            <div style={{fontSize: '.7rem'}}>{item.time}</div>
                           </p>
                         </div>
                       } else {
                         return <div key={i} className='L-left'>
                           <p className="message-left">
-                            {item.name}: {item.message} <div style={{fontSize: '.7rem'}}>{item.time}</div>
+                            {item.message} 
+                            <div style={{fontSize: '.7rem'}}>{item.time}</div>
                           </p>
                         </div>
                       }
                     })
                   ) : (
-                    <>
-                      <p>Loading...</p>
-                    </>
+                    <p className='loading'>Loading...</p>
                   )
                 }
               </div>
               <div className="msgs-controls">
                 <input 
+                  value={currentMessage}
                   onChange={e => setCurrentMessage(e.target.value)}
                   type="text" placeholder='Message' />
                 <button onClick={handleMessage}>Send</button>
@@ -154,9 +156,7 @@ export default function ChatRoom() {
             </div>
           </>
         ) : (
-          <>
-            <p>Not Logged In -ChatRoom</p>
-          </>
+          <p>Not Logged In</p>
         )
       }
     </div>
