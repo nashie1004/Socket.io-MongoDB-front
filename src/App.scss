@@ -203,34 +203,58 @@ body{
 
             .msgs-box-main{
                 overflow-y: scroll;
-                width: 100%;
+                max-width: 100%;
                 height: 84vh;
                 position: relative;
-
-                @mixin msgBox($color){
-                    background: $color;
-                    padding: .5rem 1rem;
-                    border-radius: .5rem;
-                }
-                .L-right{
-                    width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                overflow-x: hidden;
+                
+                @mixin L($color){
+                    width: 98%;
                     display: flex;
+                    gap: .7rem;
+                    align-items: center;
+                    padding: .5rem;
+                    flex-wrap: wrap;
+
+                    .img{
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                        }
+                    }
+                    
+                    .msg-content{
+                        background: $color;
+                        padding: .3rem .6rem;
+                        border-radius: .5rem;
+                        max-width: 50%;
+                        word-break:break-all;
+
+                        .msg-time{
+                            font-size: .6rem;
+                            display: block;
+                            margin-top: .3rem;
+                        }
+                    }
+                }
+
+                .L-right{
                     justify-content: flex-end;
+                    @include L($lime);
                 }
                 .L-left{
-                    display: flex;
-                    width: 100%;
+                    justify-content: flex-start;
+                    @include L($dodger);
                 }
-                .message-left{
-                    @include msgBox($dodger);
-                    margin: .5rem;
-                }
-                .message-right{
-                    @include msgBox($lime);
-                    align-self: flex-end;
-                    margin: .5rem;
-                }
-                
+
                 .loading{
                     position: absolute;
                     transform: translate(-50%, -50%);
@@ -512,12 +536,9 @@ body{
             border-right: none;
             border-bottom: 1px solid $nav-border;
             gap: .5rem;
-            scroll-snap-type: x mandatory;
-            scroll-padding-inline: .5rem;
 
             .display-user{
                 min-width: 200px;
-                scroll-snap-align: start;
 
                 img{
                     max-width: 50px;

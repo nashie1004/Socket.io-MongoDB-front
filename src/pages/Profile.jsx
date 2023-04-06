@@ -2,19 +2,19 @@ import React, {useContext, useEffect, useState} from 'react'
 import {Data} from '../App';
 import { createAvatar } from '@dicebear/core';
 import { croodles, notionistsNeutral, pixelArt, lorelei, adventurer, notionists, funEmoji, identicon, thumbs } from '@dicebear/collection';
-
-const BASE = 'http://localhost:3001'
+import {useNavigate} from 'react-router-dom'
 
 export default function Profile() {
   const LOCAL_STORAGE = JSON.parse(localStorage.getItem('token'))
   
-  const {setLoggedIn, loggedIn, callAllUsers, callSavedUsers} = useContext(Data)
+  const {setLoggedIn, loggedIn, callAllUsers, callSavedUsers, BASE} = useContext(Data)
   const [changeName, setChangeName] = useState('')
   const [changePassword, setChangePassword] = useState('')
   const [changeSeed, setChangeSeed] = useState('')
   const [changeAvatarType, setChangeAvatarType] = useState(lorelei)
   const [changeBGColor, setChangeBGColor] = useState('ffffff')
   const [changeAvatar, setChangeAvatar] = useState(lorelei)
+  const redirect = useNavigate()
 
   useEffect(() => {
     const avatar = createAvatar(changeAvatarType, {
@@ -111,8 +111,10 @@ export default function Profile() {
       })
       callAllUsers()
       callSavedUsers()
-      setLoggedIn(true)
-      console.log('ok change')
+
+      localStorage.removeItem('token')
+      setLoggedIn(false)
+      redirect('/login')
     }
   }
 

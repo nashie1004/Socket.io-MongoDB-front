@@ -2,12 +2,10 @@ import React, {useState, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { Data } from '../App';
 
-const BASE = 'http://localhost:3001'
-
 export default function Login() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const {loggedIn, setLoggedIn} = useContext(Data)
+  const {loggedIn, setLoggedIn, BASE} = useContext(Data)
   const redirect = useNavigate()
   
   async function handleSubmit(){
@@ -59,7 +57,7 @@ export default function Login() {
               placeholder='Name' /><br />
             <input 
               onChange={e => setPassword(e.target.value)}
-              type="text" 
+              type="password" 
               placeholder='Password' /><br />
             <button onClick={handleSubmit}>Login</button>
         </div>

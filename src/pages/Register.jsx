@@ -4,12 +4,10 @@ import { Data } from '../App';
 import { createAvatar } from '@dicebear/core';
 import { croodles, notionistsNeutral, pixelArt, lorelei, adventurer, notionists, funEmoji, identicon, thumbs } from '@dicebear/collection';
 
-const BASE = 'http://localhost:3001'
-
 export default function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const {loggedIn} = useContext(Data)
+  const {loggedIn, BASE} = useContext(Data)
   const redirect = useNavigate()
   const [seed, setSeed] = useState('an');
   const [bgColor, setBgColor] = useState('ffffff');
@@ -102,7 +100,7 @@ export default function Register() {
             <br />
             <input 
               onChange={e => setPassword(e.target.value)}
-              type="text" placeholder='Password' />
+              type="password" placeholder='Password' />
             <br />
             <div className="profile-options">
               <input type="text" placeholder='Seed'

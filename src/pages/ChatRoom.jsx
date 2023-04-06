@@ -2,10 +2,8 @@ import React, {useState, useContext, useEffect, useRef} from 'react'
 import { Data } from '../App';
 import { useParams, Link } from "react-router-dom";
 
-const BASE = 'http://localhost:3001'
-
 export default function ChatRoom() {
-  const {loggedIn, socket, savedUsers} = useContext(Data)
+  const {loggedIn, socket, savedUsers, BASE} = useContext(Data)
   const [currentMessage, setCurrentMessage] = useState('');
   const [messagesArray, setMessagesArray] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
@@ -16,7 +14,8 @@ export default function ChatRoom() {
     setMessagesArray(prev => [...prev, {
       name: data.name, 
       message: data.message,
-      time: data.time
+      time: data.time,
+      profile: data.profile
     }])
   })
 
@@ -85,6 +84,7 @@ export default function ChatRoom() {
     if (currentMessage !== ''){
       socket.emit('sendMessageToServer', {
         message: currentMessage, time: new Date().toLocaleTimeString(),
+        profile: JSON.parse(localStorage.getItem('token')).profile,
         room: params.roomID, name: JSON.parse(localStorage.getItem('token')).name
       })
       setCurrentMessage('')
@@ -127,17 +127,27 @@ export default function ChatRoom() {
                     messagesArray.map((item, i) => {
                       if (item.name === JSON.parse(localStorage.getItem('token')).name){
                         return <div key={i} className='L-right'>
-                          <p className="message-right">
-                            {item.message} 
-                            <div style={{fontSize: '.7rem'}}>{item.time}</div>
-                          </p>
+                          <div className="msg-content">
+                            {item.message}
+                            <span className='msg-time'>
+                              {item.time}
+                            </span>
+                          </div>
+                          <div className="img">
+                            <img src={item.profile} alt={item.name} />
+                          </div>
                         </div>
                       } else {
                         return <div key={i} className='L-left'>
-                          <p className="message-left">
-                            {item.message} 
-                            <div style={{fontSize: '.7rem'}}>{item.time}</div>
-                          </p>
+                          <div className="img">
+                            <img src={item.profile} alt={item.name} />
+                          </div>
+                          <div className="msg-content">
+                            {item.message}
+                            <span className='msg-time'>
+                              {item.time}
+                            </span>
+                          </div>
                         </div>
                       }
                     })
