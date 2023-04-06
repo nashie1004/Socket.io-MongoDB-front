@@ -1,8 +1,8 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { Data } from '../App';
 import { createAvatar } from '@dicebear/core';
-import { lorelei, adventurer, notionists, funEmoji, identicon, thumbs } from '@dicebear/collection';
+import { croodles, notionistsNeutral, pixelArt, lorelei, adventurer, notionists, funEmoji, identicon, thumbs } from '@dicebear/collection';
 
 const BASE = 'http://localhost:3001'
 
@@ -11,12 +11,13 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const {loggedIn} = useContext(Data)
   const redirect = useNavigate()
-  const [seed, setSeed] = useState('');
-  const [bgColor, setBgColor] = useState('');
+  const [seed, setSeed] = useState('an');
+  const [bgColor, setBgColor] = useState('ffffff');
   const [avatarType, setAvatarType] = useState(lorelei)
+  const [avatar, setAvatar] = useState(lorelei)
 
   async function handleSubmit(){
-    if (name !== '' && password !== ''){
+    if (name !== '' && password !== '' && avatar !== ''){
       if ([...name].includes(" ")){
         name.replaceAll(" ", "_")
       }
@@ -30,7 +31,7 @@ export default function Register() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name, password, profile: `https://picsum.photos/id/${Math.floor(Math.random() * 300)}/70/70`
+          name, password, profile: avatar
         })
       })
 
@@ -39,10 +40,10 @@ export default function Register() {
       if (data.status === 'ok'){
         redirect('/login')
       } else {
-        alert('Error: Check Name or Password')
+        alert('Error: Check Name, Password or Avatar')
       }
     } else {
-      alert('Error: Check Name or Password')
+      alert('Error: Check Name, Password or Avatar')
     }
   }
 
@@ -65,12 +66,22 @@ export default function Register() {
       setAvatarType(identicon)
     } else if (e.target.value === 'thumbs') {
       setAvatarType(thumbs)
+    } else if (e.target.value === 'pixelArt') {
+      setAvatarType(pixelArt)
+    } else if (e.target.value === 'notionistsNeutral') {
+      setAvatarType(notionistsNeutral)
+    } else if (e.target.value === 'croodles') {
+      setAvatarType(croodles)
     }
   }
 
-  const avatar = createAvatar(avatarType, {
-    seed, backgroundColor: [bgColor]
-  }).toDataUriSync()
+  useEffect(() => {
+    const avatar = createAvatar(avatarType, {
+      seed, backgroundColor: [bgColor]
+    }).toDataUriSync()
+
+    setAvatar(avatar)
+  }, [seed, avatarType, bgColor])
   
   return (
     <div className='Register'>
@@ -97,15 +108,19 @@ export default function Register() {
               <input type="text" placeholder='Seed'
                 onChange={e => setSeed(e.target.value)}
               />
-              <select name='Avatar Type' onChange={handleAvatarType}>
-                <option value="lorelei">Lorelei</option> , 
+              <select placeholder='Avatar Type' name='Avatar Type' onChange={handleAvatarType}>
+                <option value="" selected disabled>Avatar Type</option>
                 <option value="adventurer">Adventurer</option>
+                <option value="lorelei">Lorelei</option> , 
                 <option value="notionists">Notionists</option>
                 <option value="funEmoji">FunEmoji</option>
                 <option value="identicon">Identicon</option>
                 <option value="thumbs">Thumbs</option>
+                <option value="pixelArt">PixelArt</option>
+                <option value="notionistsNeutral">Neutral</option>
+                <option value="croodles">Croodles</option>
               </select>
-              <input type="color"
+              <input type="color" placeholder='Color'
                 onChange={handleColor}
               />
             </div>

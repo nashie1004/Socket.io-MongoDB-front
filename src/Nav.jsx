@@ -30,7 +30,7 @@ export default function Nav() {
         <span>Chat</span> 
         <div 
           className="hamburger" 
-          onClick={handleResponsiveNav}>X
+          onClick={handleResponsiveNav}>=
         </div> 
       </p>
       <span className='links' ref={showNav}>

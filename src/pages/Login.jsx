@@ -36,7 +36,7 @@ export default function Login() {
 
         localStorage.setItem('token', option)
         setLoggedIn(true)
-        redirect('/chat')
+        redirect('/users')
       } else {
         alert('Error: Check Name or Password')
       }
@@ -52,10 +52,6 @@ export default function Login() {
       ) : (
         <div className='form'>
           <p>Log in to Your Account</p>
-            <br />
-            <div className="img">
-              {/* <img src="" alt="pfp" /> */}
-            </div>
             <br />
             <input 
               onChange={e => setName(e.target.value)}

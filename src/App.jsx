@@ -145,7 +145,8 @@ function App() {
           handleButton, socket,
           loggedIn, setLoggedIn, 
           savedUsers, setSavedUsers, 
-          allUsers, setAllUsers
+          allUsers, setAllUsers,
+          callAllUsers, callSavedUsers
         }}>
           <Nav />
           <Routes>

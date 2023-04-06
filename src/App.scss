@@ -79,7 +79,6 @@ body{
                 height: 50px;
                 width: 50px;
                 border-radius: 50%;
-                border: 1px solid $border;
             }
         }
     }
@@ -143,8 +142,8 @@ body{
                 border-radius: 50%;
                 border: 2px solid $danger;
                 padding: .8rem;
-                width: 100px;
-                height: 100px;
+                width: 40%;
+                max-width: 200px;
             }
     
             .card-title{
@@ -329,6 +328,38 @@ body{
                         border: 1px solid $dodger;
                     }
                 }
+
+                .change-pfp{
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: .5rem;
+                    align-items: center;
+                    justify-content: center;
+
+                    input[type='text']{
+                        flex: 1;
+                        max-width: 100px;
+                    }
+                    
+                    select{
+                        // max-width: 150px;
+                        background: none;
+                        outline: 1px solid $cyan;
+                        color: $white;
+                        border: none;
+                        padding-block: .5rem;
+                        padding-left: 1rem;
+                        padding-right: .5rem;
+
+                        &:focus{
+                            outline: 1px solid $dodger;
+                        }
+                        option{
+                            background: $black;
+                        }
+                    }
+                }
+
                 button{
                     padding: .6rem 2rem;
                     background: $cyan;
@@ -360,18 +391,18 @@ body{
                 font-weight: bold;
             }
             .img{   
-                border-radius: 50%;
                 width: 160px;
                 height: 160px;
                 outline: none;
                 display: grid;
                 place-items: center;
                 border: 1px solid $cyan;
-
+                border-radius: 50%;
+                
                 img{
+                    border-radius: 50%;
                     max-width: 85%;
                     max-height: 85%;
-                    border-radius: 50%;
                     border: none;
                 }
             }
