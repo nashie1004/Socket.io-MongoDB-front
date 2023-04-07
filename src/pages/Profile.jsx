@@ -17,7 +17,7 @@ export default function Profile() {
   const redirect = useNavigate()
 
   useEffect(() => {
-    if (changeAvatarType && changeAvatar){
+    if (changeAvatarType){
       const avatar = createAvatar(changeAvatarType, {
         seed: changeSeed, backgroundColor: [changeBGColor]
       }).toDataUriSync()
@@ -27,11 +27,11 @@ export default function Profile() {
   }, [changeSeed, changeAvatarType, changeBGColor])
 
   useEffect(() => {
-    if (loggedIn && changeAvatarType && changeAvatar){
+    if (loggedIn){
       setChangeAvatar(LOCAL_STORAGE.profile)
       setChangeAvatarType(lorelei)
     }
-  }, [])
+  }, [loggedIn])
 
   //CHANGE AVATAR
   function handleAvatarType(e){
