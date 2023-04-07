@@ -11,6 +11,7 @@ import Nav from './Nav';
 import io from 'socket.io-client'
 import NoMatch from './pages/NoMatch';
 
+// const BASE = 'http://localhost:3001'
 const BASE = 'https://socketiochatappexpress.onrender.com/' //'http://localhost:3001'
 const socket = io.connect(BASE)
 export const Data = createContext();

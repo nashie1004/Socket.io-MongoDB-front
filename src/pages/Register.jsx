@@ -11,8 +11,8 @@ export default function Register() {
   const redirect = useNavigate()
   const [seed, setSeed] = useState('an');
   const [bgColor, setBgColor] = useState('ffffff');
-  const [avatarType, setAvatarType] = useState(lorelei)
-  const [avatar, setAvatar] = useState(lorelei)
+  const [avatarType, setAvatarType] = useState(null)
+  const [avatar, setAvatar] = useState('')
 
   async function handleSubmit(){
     if (name !== '' && password !== '' && avatar !== ''){
@@ -74,13 +74,19 @@ export default function Register() {
   }
 
   useEffect(() => {
-    const avatar = createAvatar(avatarType, {
-      seed, backgroundColor: [bgColor]
-    }).toDataUriSync()
+    if (avatarType){
+      const avatar = createAvatar(avatarType, {
+        seed, backgroundColor: [bgColor]
+      }).toDataUriSync()
 
-    setAvatar(avatar)
+      setAvatar(avatar)
+    }
   }, [seed, avatarType, bgColor])
   
+  useEffect(() => {
+    setAvatarType(lorelei)
+  }, [])
+
   return (
     <div className='Register'>
       {
