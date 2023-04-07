@@ -37,7 +37,7 @@ export default function Nav() {
         {
           loggedIn ? (
             <>
-              <Link to='/chat'>Chat</Link>
+              <Link to='/'>Chat</Link>
               <Link to='/users'>Users</Link>
               <Link to='/profile'>Profile</Link>
               <button onClick={removeToken}>Logout</button>
