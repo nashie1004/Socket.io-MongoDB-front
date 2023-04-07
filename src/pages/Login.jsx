@@ -20,6 +20,7 @@ export default function Login() {
         })
       })
 
+      console.log(res)
       const data = await res.json();
       if (data.status === 'ok'){
         const option = JSON.stringify({

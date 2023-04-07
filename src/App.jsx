@@ -12,6 +12,7 @@ import io from 'socket.io-client'
 import NoMatch from './pages/NoMatch';
 
 // const BASE = 'http://localhost:3001'
+// TRY: POSTMAN, AXIOS
 const BASE = 'https://socketiochatappexpress.onrender.com/' //'http://localhost:3001'
 const socket = io.connect(BASE)
 export const Data = createContext();
