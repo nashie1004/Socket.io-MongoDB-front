@@ -11,21 +11,25 @@ export default function Profile() {
   const [changeName, setChangeName] = useState('')
   const [changePassword, setChangePassword] = useState('')
   const [changeSeed, setChangeSeed] = useState('')
-  const [changeAvatarType, setChangeAvatarType] = useState(lorelei)
+  const [changeAvatarType, setChangeAvatarType] = useState(null)
   const [changeBGColor, setChangeBGColor] = useState('ffffff')
-  const [changeAvatar, setChangeAvatar] = useState(lorelei)
+  const [changeAvatar, setChangeAvatar] = useState('')
   const redirect = useNavigate()
 
   useEffect(() => {
-    const avatar = createAvatar(changeAvatarType, {
-      seed: changeSeed, backgroundColor: [changeBGColor]
-    }).toDataUriSync()
-    setChangeAvatar(avatar)
+    if (changeAvatarType){
+      const avatar = createAvatar(changeAvatarType, {
+        seed: changeSeed, backgroundColor: [changeBGColor]
+      }).toDataUriSync()
+
+      setChangeAvatar(avatar)
+    }
   }, [changeSeed, changeAvatarType, changeBGColor])
 
   useEffect(() => {
     if (loggedIn){
       setChangeAvatar(LOCAL_STORAGE.profile)
+      setChangeAvatarType(lorelei)
     }
   }, [loggedIn])
 
