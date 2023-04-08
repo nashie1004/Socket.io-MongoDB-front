@@ -72,7 +72,7 @@ export default function ChatRoom() {
           })
           const res = await response.json()
           if (res.status !== 'ok'){
-            alert('Error in saving conversation')
+            console.log('Error in saving conversation')
           }
         }
       }
